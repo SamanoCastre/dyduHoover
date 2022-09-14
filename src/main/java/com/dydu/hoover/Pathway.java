@@ -94,7 +94,8 @@ public class Pathway {
 					lineIndex = lineIndex > 0 ? lineIndex-- : lineIndex;
 				}
 			}
-			direction =  elementIndex < this.matrix[lineIndex].length-1 ? this.getDirection(new Point(lineIndex, elementIndex)) : null;
+			direction =  elementIndex < this.matrix[lineIndex].length-1 ? 
+					this.getDirection(new Point(lineIndex, elementIndex)) : null;
 		}
 	}
 	
@@ -107,19 +108,27 @@ public class Pathway {
     */
    private Direction getDirection(Point point) {
 	   
-		if(!this.isWall(new Point(point.getX(), point.getY() + 1)) && !this.isClean(new Point(point.getX(), point.getY() + 1))) {
+		if(point.getY() < this.matrix[point.getX()].length-1 && 
+				!this.isWall(new Point(point.getX(), point.getY() + 1)) && 
+				!this.isClean(new Point(point.getX(), point.getY() + 1))) {
 			return Direction.RIGHT;
 		}
 		
-		if(!this.isWall(new Point(point.getX(), point.getY() - 1)) && !this.isClean(new Point(point.getX(), point.getY() - 1))) {
+		if(point.getY() > 0 && 
+				!this.isWall(new Point(point.getX(), point.getY() - 1)) && 
+				!this.isClean(new Point(point.getX(), point.getY() - 1))) {
 			return Direction.LEFT;
 		}
 		
-		if(!this.isWall( new Point(point.getX() + 1, point.getY())) && !this.isClean(new Point(point.getX() + 1, point.getY()))) {
+		if(point.getX() < this.matrix.length -1 &&
+				!this.isWall( new Point(point.getX() + 1, point.getY())) && 
+				!this.isClean(new Point(point.getX() + 1, point.getY()))) {
 			return Direction.DOWN;
 		}
 		
-		if(!this.isWall(new Point(point.getX() - 1, point.getY())) && !this.isClean(new Point(point.getX() - 1, point.getY()))) {
+		if(point.getX() > 0 &&
+				!this.isWall(new Point(point.getX() - 1, point.getY())) && 
+				!this.isClean(new Point(point.getX() - 1, point.getY()))) {
 			return Direction.UP;
 		}
 		return null;
@@ -185,7 +194,8 @@ public class Pathway {
     * @return
     */
 	public boolean isWall(Point point) {
-		return matrix[point.getX()][point.getY()].toUpperCase().equals("M");
+		String pointArr = matrix[point.getX()][point.getY()];
+		return pointArr.toUpperCase().equals("M");
 	}
 
 	public String[][] getMatrix() {
