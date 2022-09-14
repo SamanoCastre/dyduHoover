@@ -8,8 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.List;
 
 import com.dydu.hoover.Hoover;
+import com.dydu.hoover.Point;
 import com.dydu.hoover.exceptions.FileCanNotBeReadException;
 import com.dydu.hoover.exceptions.InitializationException;
 import com.dydu.hoover.exceptions.NoDataFoundException;
@@ -24,6 +26,7 @@ import org.junit.Test;
  * @author : Samano CASTRE
  */
 public class HooverTest {
+	private static final String List = null;
 	public Hoover hoover;
 	
 	@Before
@@ -47,15 +50,30 @@ public class HooverTest {
 	@Test
 	public void numberOfPointsToCleanShouldBe() throws Exception {
 		this.hoover.init("/maze1.txt");
-		assertEquals(10, this.hoover.getNbPointsToClean());
+		assertEquals(10, this.hoover.getPathway().getNbPointsToClean());
 	}
 	
 	@Test
 	public void cleanPointsShouldMatch() throws Exception {
 		this.hoover.init("/maze1.txt");
 		this.hoover.start();
-		String[]points = {"1,0","1,1","2,1","2,2","2,3","1,3","1,4","1,5","2,5","2,6"};
-		assertEquals(Arrays.asList(points), hoover.getCleanPoints());
+		Point[]points = {
+				new Point(1,0),
+				new Point(1,1),
+				new Point(2,1),
+				new Point(2,2),
+				new Point(2,3),
+				new Point(1,3),
+				new Point(1,4),
+				new Point(1,5),
+				new Point(2,5),
+				new Point(2,6)
+			};
+		List<Point>listePoints = Arrays.asList(points);
+		for(int i = 0; i < hoover.getPathway().getCleanPoints().size(); i++) {
+			assertEquals(listePoints.get(i).getX(), hoover.getPathway().getCleanPoints().get(i).getX());
+			assertEquals(listePoints.get(i).getY(), hoover.getPathway().getCleanPoints().get(i).getY());
+		}
 	}
 	
 	@Test

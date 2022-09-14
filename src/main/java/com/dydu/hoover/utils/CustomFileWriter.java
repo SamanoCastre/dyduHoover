@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import com.dydu.hoover.Point;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,14 +23,14 @@ public class CustomFileWriter {
 	 * @param contents
 	 * @param filename
 	 */
-	public void saveResult(List<String>contents, String filename) {
+	public void saveResult(List<Point>contents, String filename) {
 		FileWriter writer = null;
 		BufferedWriter bufferWriter = null;
 		try {
 			writer = new FileWriter( filename);
 	       bufferWriter = new BufferedWriter(writer);
-	      for(String line : contents) {
-	    	  bufferWriter.append("[" + line + "]");
+	      for(Point point : contents) {
+	    	  bufferWriter.append("[" + point.getX() + ","+ point.getY() + "]");
 	    	  bufferWriter.append("\n");
 	      }
 	  }
